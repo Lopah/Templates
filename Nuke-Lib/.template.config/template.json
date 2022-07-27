@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Lopah(Daniel Jašek)",
+  "classifications": [ "Common", "Nuke", "ClassLibrary" ],
+  "identity": "Lopah.Nuke.Lib",
+  "name": "Template for creating .net classlibs published to github as packages.",
+  "shortName": "nukelib",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  }
+}
