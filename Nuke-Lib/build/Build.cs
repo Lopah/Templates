@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Nuke.Build.Custom.Helpers;
 using Nuke.Common;
 using Nuke.Common.Git;
 using Nuke.Common.IO;
@@ -23,7 +24,7 @@ public partial class Build : NukeBuild
 
     [GitRepository] readonly GitRepository GitRepository;
 
-    [GitVersion] readonly GitVersion GitVersion;
+    [GitVersion(NoFetch = true)] readonly GitVersion GitVersion;
 
     [Solution] readonly Solution Solution;
 
@@ -127,7 +128,7 @@ public partial class Build : NukeBuild
         });
 
     /// <summary>
-    ///     If possible, don't release new version of library without testing client project that works with it
+    /// If possible, don't release new version of library without testing client project that works with it
     /// </summary>
     Target Pack => _ => _
         .Description("Packs the shared library in this project to be then shared via NuGet")
@@ -135,21 +136,16 @@ public partial class Build : NukeBuild
         .DependsOn(UnitTests)
         .Executes(() =>
         {
-            DotNetPack(s => s
-                .SetProject(Solution.GetProject("Portal.Application.Shared"))
-                .SetOutputDirectory(OutputDirectory)
-                .SetConfiguration(Configuration.Release)
-                .SetVersion(GitVersion.NuGetVersionV2)
-                .SetPackageReleaseNotes(SourceDirectory / "CHANGELOG.md")
-                .EnableNoRestore());
-
-            DotNetPack(s => s
-                .SetProject(Solution.GetProject("Portal.Application.Client"))
-                .SetOutputDirectory(OutputDirectory)
-                .SetConfiguration(Configuration.Release)
-                .SetVersion(GitVersion.NuGetVersionV2)
-                .SetPackageReleaseNotes(SourceDirectory / "CHANGELOG.md")
-                .EnableNoRestore());
+            Solution.Projects.Where(e => e.IsPackable()).ForEach(e =>
+            {
+                DotNetPack(s => s
+                    .SetProject(e)
+                    .SetOutputDirectory(OutputDirectory)
+                    .SetConfiguration(Configuration.Release)
+                    .SetVersion(GitVersion.NuGetVersionV2)
+                    .SetPackageReleaseNotes(SourceDirectory / "CHANGELOG.md")
+                    .EnableNoRestore());
+            });
         });
 
     public static int Main() => Execute<Build>(x => x.Compile);

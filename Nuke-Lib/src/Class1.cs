@@ -1,4 +1,4 @@
-﻿namespace Nuke_Lib;
+﻿namespace NukeLib;
 
 public class Class1
 {

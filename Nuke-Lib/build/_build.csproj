@@ -11,14 +11,19 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Dangl.Nuke.CoberturaConverter" Version="2.0.0"/>
-        <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1"/>
-        <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0"/>
-        <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="6.0.1"/>
-        <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1"/>
-        <PackageReference Include="Nuke.CodeGeneration" Version="6.1.2"/>
-        <PackageReference Include="Nuke.Common" Version="6.1.2"/>
-        <PackageReference Include="Nuke.GitHub" Version="3.0.0"/>
+        <PackageReference Include="Dangl.Nuke.CoberturaConverter" Version="2.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="6.0.1" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
+        <PackageReference Include="Nuke.CodeGeneration" Version="6.1.2" />
+        <PackageReference Include="Nuke.Common" Version="6.1.2" />
+        <PackageReference Include="Nuke.GitHub" Version="3.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageDownload Include="GitVersion.CommandLine" Version="[5.10.3]" />
+      <PackageDownload Include="GitVersion.Tool" Version="[5.10.3]" />
     </ItemGroup>
 
 </Project>
